@@ -206,14 +206,14 @@ require(
 
                         // Get the position of the two axes (second one RIGHT  SHOULDER + D-PAD), apply the origin correction and parabolic curve.
                         // The parabolic function will make movements near the origin less pronounced than the edges.
-						// 9 start 8 select  1 A 0 X 3 Y 2 B 4 Left  5 right 
+						// Buttons ID : (9) start (8) select  (1) A (0) X (3) Y (2) B (4) Left SHOULDER  (5) Right SHOULDER 
 						var lx = 0; 
 						var ly = 0 ; 
 						var rx = 0; 
 						var ry=0 ; 
 						
 						var  rightShoulderSelected =  false;
-						// Process button RIGHT  SHOULDER.                     
+						// If button RIGHT  SHOULDER is pressed.                     
 						if(sness.buttons[5].value)
 							rightShoulderSelected = true; 
 						
@@ -226,7 +226,7 @@ require(
 							var ry = parabolic(sness.axes[1] - origin[1]);							
 						}
                              
-                        // Values for the left and right triggers.
+                        // Values for the X and Y buttons.
                         var lt = parabolic(sness.buttons[2].value);
                         var rt = parabolic(sness.buttons[3].value);
 
@@ -294,7 +294,7 @@ require(
                                             view.popup.close();
                                             break;
 
-                                        // Menu button. Show/hide help popup.
+                                        // Select button. Show/hide help popup.
                                         case 8:
                                             if ($('#modal-help').css('display') === 'none') {
                                                 $('#modal-help').modal('show');
@@ -309,7 +309,7 @@ require(
                                             origin = sness.axes.slice();
                                             break;
 
-                                        // Left bumper button
+                                        // Left SHOULDER button
                                         case 4:
                                             if (index === null) {
                                                 index = view.map.presentation.slides.length - 1;

@@ -22,12 +22,12 @@ Controls:
 
 ![](./img/layout.png)
 
-D-PAD : Movement
-RIGHT SHOULDER + D-PAD : Rotation
-LEFT SHOULDER : Change slide 
-SELECT: Show /Hide help 
-START : Reset 
-B: Descend  
-Y: Ascend 
-A: Open popup
-X: Close popup 
+- D-PAD : Movement
+- RIGHT SHOULDER + D-PAD : Rotation
+- LEFT SHOULDER : Change slide 
+- SELECT: Show /Hide help 
+- START : Reset 
+- B: Descend  
+- Y: Ascend 
+- A: Open popup
+- X: Close popup 
