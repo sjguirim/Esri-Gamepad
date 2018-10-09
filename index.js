@@ -199,9 +199,7 @@ require(
                         // If this is the first loop then store the at-rest positions of the axis.
                         if (!origin) {
                             origin = sness.axes.slice();
-                        }
-						 
-						 
+                        }					 		 
 							
 
                         // Get the position of the two axes (second one RIGHT  SHOULDER + D-PAD), apply the origin correction and parabolic curve.
@@ -217,7 +215,7 @@ require(
 						if(sness.buttons[5].value)
 							rightShoulderSelected = true; 
 						
-						if(!rightBumperSelected){
+						if(!rightShoulderSelected){
 							 lx = parabolic(sness.axes[0] - origin[0]);
 							 ly = parabolic(sness.axes[1] - origin[1]);
 						}else {
