@@ -17,7 +17,9 @@
 /*
     REFERENCE MATERIAL
     ------------------
-
+	XBOX controller sample/source project: 
+	https://github.com/richiecarmichael/Esri-Gamepad
+	
     ArcGIS API for JavaScript
     https://developers.arcgis.com/javascript/latest/api-reference/index.html
 
@@ -35,8 +37,8 @@
     WEB SCENES
     ----------
 
-    Phillidephia
-    5c2293d8f06448f9a05fa508b4f28b9e
+    Lyon city 
+    861e35bd6818445082796c1517454048
 
     San Francisco
     53d44be1fd7443a99cf0fbf7d95a2365
@@ -63,10 +65,10 @@ require(
             'use strict';
 
             // Default web scene
-            var DEFAULT = '53d44be1fd7443a99cf0fbf7d95a2365';
+            var DEFAULT = '861e35bd6818445082796c1517454048';
 
             // These constants dictate the speed of angular and linear motion. Adjust as necessary.
-            var ANGULAR_RATIO = 4;
+            var ANGULAR_RATIO = 2;
             var LINEAR_RATIO = 0.05;
 
             // Use this variable to store the at-rest values of the joysticks. Older controllers may not be zero.
@@ -188,27 +190,45 @@ require(
                     // Get all attached gamepads. Do not proceed if none exist.
                     var gamepads = navigator.getGamepads();
                     if (gamepads && gamepads.length > 0 && gamepads[0]) {
-                        // For simplicity only use first connected gamepad. Assume xbox 360/one controller.
-                        var xbox = gamepads[0];
+                        // For simplicity only use first connected gamepad. Assume one usb sness controller.
+                        var sness = gamepads[0];
 
                         // Get Esri camera.
                         var camera = view.camera;
 
                         // If this is the first loop then store the at-rest positions of the axis.
                         if (!origin) {
-                            origin = xbox.axes.slice();
+                            origin = sness.axes.slice();
                         }
+						 
+						 
+							
 
-                        // Get the position of the two xbox axes, apply the origin correction and parabolic curve.
+                        // Get the position of the two axes (second one RIGHT  SHOULDER + D-PAD), apply the origin correction and parabolic curve.
                         // The parabolic function will make movements near the origin less pronounced than the edges.
-                        var lx = parabolic(xbox.axes[0] - origin[0]);
-                        var ly = parabolic(xbox.axes[1] - origin[1]);
-                        var rx = parabolic(xbox.axes[2] - origin[2]);
-                        var ry = parabolic(xbox.axes[3] - origin[3]);
-
+						// 9 start 8 select  1 A 0 X 3 Y 2 B 4 Left  5 right 
+						var lx = 0; 
+						var ly = 0 ; 
+						var rx = 0; 
+						var ry=0 ; 
+						
+						var  rightShoulderSelected =  false;
+						// Process button RIGHT  SHOULDER.                     
+						if(sness.buttons[5].value)
+							rightShoulderSelected = true; 
+						
+						if(!rightBumperSelected){
+							 lx = parabolic(sness.axes[0] - origin[0]);
+							 ly = parabolic(sness.axes[1] - origin[1]);
+						}else {
+							//RIGHT  SHOULDER + D-PAD 
+							var rx = parabolic(sness.axes[0] - origin[0]);
+							var ry = parabolic(sness.axes[1] - origin[1]);							
+						}
+                             
                         // Values for the left and right triggers.
-                        var lt = parabolic(xbox.buttons[6].value);
-                        var rt = parabolic(xbox.buttons[7].value);
+                        var lt = parabolic(sness.buttons[2].value);
+                        var rt = parabolic(sness.buttons[3].value);
 
                         // Calculate the new heading and tilt.
                         var heading = camera.heading + rx * ANGULAR_RATIO;
@@ -244,9 +264,7 @@ require(
                             },
                             tilt: tilt
                         };
-
-                        // Process button input.
-                        var temp = xbox.buttons.map(function (button) {
+						   var temp = sness.buttons.map(function (button) {
                             return button.pressed;
                         });
                         if (buttons !== null) {
@@ -254,7 +272,7 @@ require(
                                 if (!buttons[i] && temp[i]) {
                                     switch (i) {
                                         // Green (A) button.
-                                        case 0:
+                                        case 1:
                                             if (!start || !start.graphic) {
                                                 view.popup.close();
                                                 return;
@@ -271,7 +289,7 @@ require(
                                             break;
 
                                         // Red (B) button.
-                                        case 1:
+                                        case 0:
                                             // Close popup window.
                                             view.popup.close();
                                             break;
@@ -288,7 +306,7 @@ require(
 
                                         // Start button.
                                         case 9:
-                                            origin = xbox.axes.slice();
+                                            origin = sness.axes.slice();
                                             break;
 
                                         // Left bumper button
@@ -303,24 +321,14 @@ require(
                                             }
                                             openslide();
                                             break;
-
-                                        // Right bumper button.
-                                        case 5:
-                                            if (index === null) {
-                                                index = 0;
-                                            } else {
-                                                index++;
-                                                if (index > view.map.presentation.slides.length - 1) {
-                                                    index = 0;
-                                                }
-                                            }
-                                            openslide();
-                                            break;
+                                       
                                     }
                                 }
                             }
                         }
                         buttons = temp;
+
+                      
                     }
 
                     // Highlight graphic
