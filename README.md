@@ -4,7 +4,7 @@
 
 This is an experimental application to test the effectiveness of using a    [SNES USB Gamepad contoller for PC / RetroPi](https://en.wikipedia.org/wiki/Super_Nintendo_Entertainment_System) to navigate in a 3d web application built using [Esri](https://www.esri.com)'s [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/).
 
-Click [here] (https://sjguirim.github.io/Esri-Gamepad/) to test the application. 
+Click [here](https://sjguirim.github.io/Esri-Gamepad/) to test the application. 
 
 This app has only been tested on Windows desktops with USB  game controller such as [this](https://github.com/RetroPie/RetroPie-Setup/wiki/Controller-Configuration).
 
