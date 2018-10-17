@@ -16,13 +16,13 @@ The application was built using the following technologies:
 - [Popper.js](https://github.com/jquery/jquery-mousewheel/) by [Federico Zivolo](https://github.com/FezVrasta).
 
 [This](https://www.arcgis.com/home/item.html?id=861e35bd6818445082796c1517454048) web scene of  Lyon city is used. To use an alternative scene, use a *webscene* query to specify the id of the alternative scene. For example:
-http://localhost:8080/index.html?webscene=9b6046a675fb4f70bd233d847988393e
+https://sjguirim.github.io/Esri-Gamepad/index.html?webscene=9b6046a675fb4f70bd233d847988393e
 
 Controls:
 
 ![](./img/layout.png)
 
-- D-PAD : Movement
+- D-PAD : Pan
 - RIGHT SHOULDER + D-PAD : Rotation
 - LEFT SHOULDER : Change slide 
 - SELECT: Show /Hide help 
